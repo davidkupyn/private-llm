@@ -2,7 +2,7 @@ import UploadClient from "@/app/upload-client";
 
 async function analyzeLastUploadedFile() {
   "use server";
-  const res = await fetch("http://localhost:3002/api/index", {
+  const res = await fetch("http://localhost:3001/api/index", {
     method: "POST",
   });
   if (!res.ok) {

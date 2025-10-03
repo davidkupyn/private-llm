@@ -36,7 +36,7 @@ export async function POST(req: Request) {
         content: [
           {
             type: "text",
-            text: "What is in the file?",
+            text: "What is in the file? Summarize with bullet points. Also include a TLDR, output in json format.",
           },
           {
             type: "file",
