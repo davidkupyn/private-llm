@@ -1,22 +1,21 @@
-"use client";
+import UploadClient from "@/app/upload-client";
 
-import { UploadButton } from "@/lib/uploadthing";
+async function analyzeLastUploadedFile() {
+  "use server";
+  const res = await fetch("http://localhost:3002/api/index", {
+    method: "POST",
+  });
+  if (!res.ok) {
+    throw new Error(`Failed to analyze file: ${res.status}`);
+  }
+  const text = await res.text();
+  return text;
+}
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <UploadButton
-        endpoint="imageUploader"
-        onClientUploadComplete={(res) => {
-          // Do something with the response
-          console.log("Files: ", res);
-          alert("Upload Completed");
-        }}
-        onUploadError={(error: Error) => {
-          // Do something with the error.
-          alert(`ERROR! ${error.message}`);
-        }}
-      />
+      <UploadClient onAnalyze={analyzeLastUploadedFile} />
     </main>
   );
 }

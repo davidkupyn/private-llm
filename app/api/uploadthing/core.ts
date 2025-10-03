@@ -17,6 +17,31 @@ export const ourFileRouter = {
       maxFileSize: "4MB",
       maxFileCount: 1,
     },
+    "application/pdf": {
+      maxFileSize: "4MB",
+      maxFileCount: 1,
+    },
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document": {
+      maxFileSize: "4MB",
+      maxFileCount: 1,
+    },
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+      maxFileSize: "4MB",
+      maxFileCount: 1,
+    },
+    "application/vnd.openxmlformats-officedocument.presentationml.presentation":
+      {
+        maxFileSize: "4MB",
+        maxFileCount: 1,
+      },
+    "application/vnd.ms-excel": {
+      maxFileSize: "4MB",
+      maxFileCount: 1,
+    },
+    "application/vnd.ms-powerpoint": {
+      maxFileSize: "4MB",
+      maxFileCount: 1,
+    },
   })
     // Set permissions and file types for this FileRoute
     .middleware(async ({ req }) => {

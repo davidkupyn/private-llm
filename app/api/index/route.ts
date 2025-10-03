@@ -9,8 +9,19 @@ const FILE_URL = "https://ke1gzj4g07.ufs.sh/f/";
 export async function POST(req: Request) {
   const files = await utapi.listFiles();
 
-  const file = files.files[0];
-  const fileUrl = `${FILE_URL}${file.key}`;
+  // Use the most recently uploaded file
+  const lastFile =
+    files.files.slice().sort((a: any, b: any) => {
+      const aTime = (a as any).uploadedAt ?? (a as any).createdAt ?? 0;
+      const bTime = (b as any).uploadedAt ?? (b as any).createdAt ?? 0;
+      return bTime - aTime;
+    })[0] ?? files.files[files.files.length - 1];
+
+  if (!lastFile) {
+    return new Response("No files found", { status: 404 });
+  }
+
+  const fileUrl = `${FILE_URL}${lastFile.key}`;
   console.log(fileUrl);
   const fileData = await fetch(fileUrl);
   const fileBuffer = await fileData.arrayBuffer();
