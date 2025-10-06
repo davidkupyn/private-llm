@@ -15,7 +15,7 @@ export default function UploadClient({ onAnalyze }: Props) {
     <div className="flex flex-col items-center gap-4">
       <UploadButton
         endpoint="imageUploader"
-        onClientUploadComplete={() => {
+        onClientUploadComplete={async () => {
           startTransition(async () => {
             try {
               const text = await onAnalyze();
@@ -31,9 +31,7 @@ export default function UploadClient({ onAnalyze }: Props) {
         }}
       />
 
-      {isPending && (
-        <p className="text-sm text-gray-500">Analyzing last upload…</p>
-      )}
+      {isPending && <p className="text-sm text-gray-500">Syncing summaries…</p>}
       {result && (
         <pre className="whitespace-pre-wrap text-sm bg-gray-100 p-3 rounded">
           {result}
@@ -42,4 +40,3 @@ export default function UploadClient({ onAnalyze }: Props) {
     </div>
   );
 }
-

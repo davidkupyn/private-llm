@@ -8,8 +8,8 @@ async function analyzeLastUploadedFile() {
   if (!res.ok) {
     throw new Error(`Failed to analyze file: ${res.status}`);
   }
-  const text = await res.text();
-  return text;
+  const json = await res.json();
+  return JSON.stringify(json, null, 2);
 }
 
 export default function Home() {
