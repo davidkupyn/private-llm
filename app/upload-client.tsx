@@ -12,7 +12,7 @@ export default function UploadClient({ onAnalyze }: Props) {
   const [isPending, startTransition] = useTransition();
 
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex items-center gap-3">
       <UploadButton
         endpoint="imageUploader"
         onClientUploadComplete={async () => {
@@ -30,12 +30,18 @@ export default function UploadClient({ onAnalyze }: Props) {
           alert(`ERROR! ${error.message}`);
         }}
       />
-
-      {isPending && <p className="text-sm text-gray-500">Syncing summaries…</p>}
+      {isPending && (
+        <span className="text-xs text-muted-foreground">Syncing…</span>
+      )}
       {result && (
-        <pre className="whitespace-pre-wrap text-sm bg-gray-100 p-3 rounded">
-          {result}
-        </pre>
+        <details className="text-xs">
+          <summary className="cursor-pointer text-muted-foreground">
+            Details
+          </summary>
+          <pre className="whitespace-pre-wrap text-xs bg-secondary text-secondary-foreground p-2 rounded mt-1 max-h-48 overflow-auto">
+            {result}
+          </pre>
+        </details>
       )}
     </div>
   );

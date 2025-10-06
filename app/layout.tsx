@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
+import UploadClient from "@/app/upload-client";
+import { analyzeLastUploadedFile } from "@/app/actions";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +30,22 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <header className="border-b sticky top-0 z-50 bg-background/80 backdrop-blur">
+          <div className="mx-auto max-w-5xl px-4 h-14 flex items-center justify-between">
+            <nav className="flex items-center gap-4 text-sm">
+              <Link href="/" className="font-medium hover:opacity-80">
+                Chat
+              </Link>
+              <Link href="/summaries" className="hover:opacity-80">
+                Summaries
+              </Link>
+            </nav>
+            <div className="flex items-center gap-3">
+              <UploadClient onAnalyze={analyzeLastUploadedFile} />
+            </div>
+          </div>
+        </header>
+        <main className="mx-auto max-w-5xl px-4 py-6">{children}</main>
       </body>
     </html>
   );
