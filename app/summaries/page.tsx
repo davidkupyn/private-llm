@@ -11,7 +11,7 @@ export default async function SummariesPage() {
             No summaries yet. Upload a file to start.
           </p>
         )}
-        {items.map((s) => (
+        {items.reverse().map((s) => (
           <article key={s.key} className="rounded-lg border p-4">
             <div className="flex items-center justify-between gap-4">
               <div className="space-y-1">
