@@ -23,7 +23,7 @@ export async function summarizeUploadThingKey(params: {
         content: [
           {
             type: "text",
-            text: "What is in the file? Summarize with bullet points. Also include a TLDR, output in json format.",
+            text: "What is in the file? Summarize with bullet points. Also include a TLDR, output in json format. IF ITS A NON COMPETE FILE, TELL ME IN TLDR HOW TO NOT BREAK THE NON COMPETE",
           },
           {
             type: "file",

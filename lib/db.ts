@@ -11,8 +11,8 @@ export const summaries = sqliteTable("summaries", {
 
 export const db = drizzle({
   connection: {
-    url: process.env.DATABASE_URL,
-    authToken: process.env.DATABASE_AUTH_TOKEN,
+    url: process.env.DATABASE_URL ?? "",
+    authToken: process.env.DATABASE_AUTH_TOKEN ?? "",
   },
   schema: {
     summaries,
@@ -46,4 +46,9 @@ export async function upsertSummary(params: {
 export async function getAllSummaryKeys(): Promise<string[]> {
   const rs = await db.select({ key: summaries.key }).from(summaries);
   return rs.map((r) => r.key);
+}
+
+export async function getAllSummaries() {
+  const rs = await db.select().from(summaries);
+  return rs;
 }

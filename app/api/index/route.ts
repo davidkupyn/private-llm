@@ -19,7 +19,6 @@ export async function POST(req: Request) {
       }
     );
   }
-
   let synced = 0;
   for (const f of missing) {
     try {
