@@ -5,9 +5,12 @@ import { useEffect, useRef, useState } from "react";
 import { Send } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 export default function Chat() {
   const [input, setInput] = useState("");
+  const [airplaneMode, setAirplaneMode] = useState(true);
   const { messages, sendMessage } = useChat();
   const bottomRef = useRef<HTMLDivElement>(null);
   const [isSending, setIsSending] = useState(false);
@@ -53,7 +56,14 @@ export default function Chat() {
           if (!input.trim() || isSending) return;
           setIsSending(true);
           try {
-            await sendMessage({ text: input });
+            await sendMessage(
+              { text: input },
+              {
+                body: {
+                  airplaneMode: airplaneMode,
+                },
+              }
+            );
             setInput("");
           } finally {
             setIsSending(false);
@@ -63,6 +73,14 @@ export default function Chat() {
       >
         <div className="mx-auto max-w-2xl px-4 py-3">
           <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2">
+              <Switch
+                id="airplane-mode"
+                checked={airplaneMode}
+                onCheckedChange={setAirplaneMode}
+              />
+              <Label htmlFor="airplane-mode">Airplane Mode</Label>
+            </div>
             <input
               className="flex-1 h-11 rounded-md disabled:opacity-50 border px-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
               value={input}

@@ -17,13 +17,14 @@ export async function summarizeUploadThingKey(params: {
 
   const result = await generateText({
     model: google("gemini-2.5-flash"),
+
     messages: [
       {
         role: "user",
         content: [
           {
             type: "text",
-            text: "What is in the file? Summarize with bullet points. Also include a TLDR, output in json format.",
+            text: "What is in the file? Summarize with bullet points. Also include a TLDR, output in json format. Include embeddings for querying using vectors { tldr: '', summary: '', embeddings: '' }",
           },
           {
             type: "file",
